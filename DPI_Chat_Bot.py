@@ -8,14 +8,16 @@ https://ai.google.dev/gemini-api/docs/get-started/python
 """
 
 import os
-import pathlib
-import textwrap
+import streamlit as st
+from dotenv import load_dotenv
 import google.generativeai as genai
 
 # from IPython.display import display
 # from IPython.display import Markdown
 
-genai.configure(api_key='AIzaSyAcd_8ZR9O9IA0XJWGMBpVTg87RI9kmXmA')
+load_dotenv()
+
+genai.configure(api_key=os.getenv("API_KEY"))
 
 # Create the model
 # See https://ai.google.dev/api/python/google/generativeai/GenerativeModel
@@ -39,17 +41,21 @@ chat_session = model.start_chat(
   ]
 )
 
+def getGeminiResponse(question):
+    response = model.generate_content(question)
+    return response.text
 
+st.set_page_config(page_title="A Better Chicago")
+st.header("Check Grant Eligibility")
 
-userResponse = ""
+input = st.text_input("Input:",key="input")
+submit = st.button("Check")
+response = ""
 
-while userResponse != "stop":
-    userResponse = input("What is the name of your organization and what is their data?\nSay stop to end the conversation\n\n")
-    response = chat_session.send_message(userResponse)
-    print(response.text)
-
-print("GOODBYE!")
-
-
+if submit:
+    response = getGeminiResponse(input)
+    st.subheader("This is what we think...")
+    st.write(response)
+    
 
 
