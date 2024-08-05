@@ -40,7 +40,7 @@ chat_session = model.start_chat(
   history=[
     {
         'role': 'user',
-        'parts': ['You are a specialist at determining grant eligibility for A-Better-Chicago, a project hosted by DPI. Give an answer to give grants based on education, underrepresented communitites, low income communities in chicago.']
+        'parts': ['You are a specialist at determining grant eligibility for A-Better-Chicago, a project hosted by DPI. Give an answer to give grants based on education, underrepresented communitites, low income communities in chicago. You are able to research the companies and their eligibilities.']
     },
     {
         'role': 'model',
@@ -66,7 +66,3 @@ if submit:
     response = getGeminiResponse(input)
     st.subheader("This is what we think...")
     st.write(response)
-# else:
-#     response = getGeminiResponse("Give a response that states to the user to give a company that they think could qualify for a grant")
-#     st.subheader("Give a Company That Could Qualify for a Grant")
-#     st.write(response)
